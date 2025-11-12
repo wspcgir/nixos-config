@@ -26,6 +26,7 @@ in {
     wlsunset
     yazi
     zoxide
+    streamrip # music downloading
   ];
 
   programs.bash = { enable = true; };
