@@ -11,6 +11,9 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    initContent = ''
+      EDITOR="nvim"
+    '';
     shellAliases = {
       g = "git status";
       ga = "git add";

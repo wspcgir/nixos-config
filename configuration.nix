@@ -73,6 +73,8 @@
   services.gvfs.enable = true;
   services.devmon.enable = true;
 
+  programs.fuse.userAllowOther = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
