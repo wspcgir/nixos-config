@@ -15,8 +15,12 @@
       EDITOR="nvim"
     '';
     shellAliases = {
+      sv = "sudo vi";
+      v = "vi";
       g = "git status";
       ga = "git add";
+      gc = "git commit";
+      sgc = "sudo git commit";
       gaa = "git add -A";
       sga = "sudo git add";
       sgaa = "sudo git add -A";
