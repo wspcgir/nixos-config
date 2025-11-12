@@ -17,6 +17,9 @@
     shellAliases = {
       g = "git status";
       ga = "git add";
+      gaa = "git add -A";
+      sga = "sudo git add";
+      sgaa = "sudo git add -A";
       nrs = "sudo nixos-rebuild switch";
     };
     oh-my-zsh = {

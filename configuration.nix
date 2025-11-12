@@ -207,6 +207,6 @@
   services.ollama = {
     enable = true;
     acceleration = "cuda";
-    loadModels = [ "qwen3:8b" "deepseek-coder:6.7b" ];
+    loadModels = [ "qwen3:8b" "deepseek-coder:6.7b" "embeddinggemma:300m" ];
   };
 }
