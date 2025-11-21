@@ -17,16 +17,17 @@ in {
   ];
 
   home.packages = with pkgs; [
-    alacritty
+    alacritty # terminal
     direnv
     glance # dashboards
     kitty # required by hyprland
-    rclone
+    rclone # file transfer
+    streamrip # music downloading
+    telegram-desktop
     vscode
-    wlsunset
+    wlsunset # screen temperature
     yazi
     zoxide
-    streamrip # music downloading
   ];
 
   programs.bash = { enable = true; };
