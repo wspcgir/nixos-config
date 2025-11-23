@@ -10,12 +10,20 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixified-ai.url = "github:nixified-ai/flake";
   }; 
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, nvf, ... }@inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+  outputs = { 
+    self, nixpkgs, home-manager, 
+    sops-nix, nvf, nixified-ai,
+    ... 
+    }@inputs: let 
       system = "x86_64-linux";
+    in {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
       modules = [
+        # (import ./comfyui.nix { inherit nixified-ai; inherit system; inherit nixpkgs; })
         ./configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
