@@ -17,7 +17,10 @@
         gaps_out = 0;
         gaps_in = 0;
       };
-      monitor = [ ",preferred,auto,1" ];
+      monitor = [ 
+        ",preferred,auto,1" 
+        "monitor=DP-4,2560x1440@169.83,1920x0,1"
+      ];
       windowrule = [
         "noinitialfocus,floating:1,class:^(jetbrains-.*)$,title:^(win[0-9]+)$"
         "float,floating:1,class:^(jetbrains-.*)$,title:^(win[0-9]+)$"
