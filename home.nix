@@ -12,7 +12,6 @@ in {
     (import ./home/hyprland.nix)
     (import ./home/yazi.nix)
     (import ./home/editors.nix)
-    (import ./home/glance.nix)
     (import ./home/zsh.nix)
   ];
 

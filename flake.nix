@@ -23,7 +23,7 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
       modules = [
-        # (import ./comfyui.nix { inherit nixified-ai; inherit system; inherit nixpkgs; })
+        (import ./comfyui.nix { inherit nixified-ai; inherit system; inherit nixpkgs; })
         ./configuration.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
