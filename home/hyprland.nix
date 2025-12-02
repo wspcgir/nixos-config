@@ -1,5 +1,4 @@
 { pkgs, ... }: 
-
 {
 
   programs.kitty.enable = true;
@@ -93,8 +92,8 @@
         "SUPER+CTRL+SHIFT,7,movetoworkspacesilent,7"
         "SUPER+CTRL+SHIFT,8,movetoworkspacesilent,8"
         "SUPER+CTRL+SHIFT,9,movetoworkspacesilent,9"
-        "SUPER+CTRL+SHIFT,H,movetoworkspacesilent,m-1"
-        "SUPER+CTRL+SHIFT,L,movetoworkspacesilent,m+1"
+        "SUPER+CTRL+SHIFT,H,movetoworkspacesilent,r-1"
+        "SUPER+CTRL+SHIFT,L,movetoworkspacesilent,r+1"
         "SUPER,M,movetoworkspacesilent,emptym+1"
 
         # Volume Controls

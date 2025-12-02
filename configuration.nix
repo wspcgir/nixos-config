@@ -163,6 +163,7 @@
       gnucash # accounting
       hledger # cli accounting
       jackett # torrent tracker
+      jq # cli json parsing
       keepassxc # password manager
       libreoffice-qt # office stuff
       lxsession # gui sudoo entry
