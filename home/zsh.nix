@@ -15,16 +15,28 @@
       EDITOR="nvim"
     '';
     shellAliases = {
-      sv = "sudo vi";
+      # VIM
       v = "vi";
+      sv = "sudo vi";
+
+      # GIT
       g = "git status";
       ga = "git add";
-      gc = "git commit";
-      sgc = "sudo git commit";
       gaa = "git add -A";
       sga = "sudo git add";
       sgaa = "sudo git add -A";
+      gc = "git commit";
+      sgc = "sudo git commit";
+      gpl = "git pull";
+      sgpl = "sudo git pull";
+      gpsh = "git push";
+      sgpsh = "sudo git push";
+      gs = "git stash";
+      sgs = "sudo git stash";
+
+      # NIX
       nrs = "sudo nixos-rebuild switch";
+
     };
     oh-my-zsh = {
       enable = true;
