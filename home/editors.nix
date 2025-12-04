@@ -52,6 +52,10 @@
 
   programs.vscode = {
     enable = true;
+    # Helps correct file path issues with 
+    # extensions wanting something more like 
+    # debian
+    package = pkgs.vscode-fhs;
     profiles = {
       default = {
         userSettings = {
@@ -61,6 +65,7 @@
           "nix.serverSettings" = {
             nil = { formatting = { command = [ "nixfmt" ]; }; };
           };
+          "prolog.executablePath" = "${pkgs.swi-prolog}/bin/swipl";
         };
         extensions = with pkgs.vscode-extensions; [
           vscodevim.vim
@@ -68,6 +73,13 @@
           haskell.haskell
           mkhl.direnv
           rust-lang.rust-analyzer
+        ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "vsc-prolog";
+              publisher = "arthurwang";
+              version = "0.8.23";
+              sha256 = "sha256-Da2dCpruVqzP3g1hH0+TyvvEa1wEwGXgvcmIq9B/2cQ=";
+            }
         ];
       };
     };
