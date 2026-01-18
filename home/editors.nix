@@ -55,7 +55,12 @@
     # Helps correct file path issues with 
     # extensions wanting something more like 
     # debian
-    package = pkgs.vscode-fhs;
+    package = pkgs.vscode.overrideAttrs (old: {
+      buildInputs = old.buildInputs or [] ++ [ pkgs.makeWrapper ];
+      postIntall = old.postInstall or [] ++ [ ''
+        wrapProgram $out/bin/code --add-flags '--force-disable-user-env'
+      ''];
+    });
     profiles = {
       default = {
         userSettings = {
@@ -65,22 +70,38 @@
           "nix.serverSettings" = {
             nil = { formatting = { command = [ "nixfmt" ]; }; };
           };
-          "prolog.executablePath" = "${pkgs.swi-prolog}/bin/swipl";
+          "prolog.executablePath" = "swipl";
         };
-        extensions = with pkgs.vscode-extensions; [
-          vscodevim.vim
-          jnoortheen.nix-ide
-          haskell.haskell
-          mkhl.direnv
-          rust-lang.rust-analyzer
-        ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        extensions = let
+          # Overrides the extension dependencies to include direnv 
+          # this prevents issues with extensions not finding binaries 
+          # on the path before direnv has a chance to load
+          loadAfter = deps: pkg: pkg.overrideAttrs (old: {
+            nativeBuildInputs = old.nativeBuildInputs or [] ++ [ pkgs.jq pkgs.moreutils ];
+            preInstall = old.preInstall or "" + ''
+              jq '.extensionDependencies |= . + $deps' \
+                --argjson deps ${lib.escapeShellArg (builtins.toJSON deps)} \
+                package.json | sponge package.json
+            '';
+          });
+
+          nixpkgs-extensions = with pkgs.vscode-extensions; [
+            vscodevim.vim
+            jnoortheen.nix-ide
+            haskell.haskell
+            rust-lang.rust-analyzer
+          ];
+
+          marketplace-extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
               name = "vsc-prolog";
               publisher = "arthurwang";
               version = "0.8.23";
               sha256 = "sha256-Da2dCpruVqzP3g1hH0+TyvvEa1wEwGXgvcmIq9B/2cQ=";
             }
-        ];
+          ];
+
+        in [ pkgs.vscode-extensions.mkhl.direnv ] ++ map (loadAfter [ "mkhl.direnv"]) (nixpkgs-extensions ++ marketplace-extensions);
       };
     };
   };

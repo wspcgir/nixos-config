@@ -22,7 +22,6 @@ in {
     kitty # required by hyprland
     rclone # file transfer
     streamrip # music downloading
-    swi-prolog
     telegram-desktop
     wlsunset # screen temperature
     yazi
