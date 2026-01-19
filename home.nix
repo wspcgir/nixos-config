@@ -83,43 +83,5 @@ in {
     };
   };
 
-  systemd.user.services.cycle-wallpaper = {
-    Unit = { Description = "Cycles Wallpapers managed by Hyprpaper"; };
-
-    Install = {
-
-      WantedBy = [ "default.target" ];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = let
-        script = pkgs.writeShellApplication {
-          name = "cycle-wallpaper";
-
-          runtimeInputs = with pkgs; [ hyprland coreutils ];
-
-          text = ''
-            WALLPAPER_DIR="$HOME/Pictures/wallpapers"
-            CURRENT_WALL=$(hyprctl hyprpaper listloaded | grep wallpaper | sed 's/wallpaper=,,//')
-
-            # If no wallpaper is currently loaded, select any image
-            if [ -z "$CURRENT_WALL" ]; then
-              WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.png" -o -iname "*.jpg" \) | shuf -n 1)
-            else
-              # Otherwise, pick a random wallpaper that is not the current one
-              WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.png" -o -iname "*.jpg" \) ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
-            fi
-
-            # Apply the new wallpaper
-            if [ -n "$WALLPAPER" ]; then
-              hyprctl hyprpaper reload ,"$WALLPAPER"
-            fi 
-          '';
-        };
-      in "${script}/bin/cycle-wallpaper";
-    };
-  };
-
-
   home.stateVersion = "25.05";
 }
