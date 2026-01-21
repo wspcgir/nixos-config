@@ -1,8 +1,9 @@
 {
   description = "NixOS flake";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -10,12 +11,11 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixified-ai.url = "github:nixified-ai/flake";
   }; 
 
   outputs = { 
-    self, nixpkgs, home-manager, 
-    sops-nix, nvf, nixified-ai,
+    self, nixpkgs, nixpkgs-unstable, home-manager, 
+    sops-nix, nvf,
     ... 
     }@inputs: let 
       system = "x86_64-linux";
@@ -23,8 +23,9 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
       modules = [
-          # (import ./comfyui.nix { inherit nixified-ai; inherit system; inherit nixpkgs; })
-        ./configuration.nix
+        (import ./configuration.nix { 
+          nixpkgs-unstable = import nixpkgs-unstable { inherit system; }; 
+        })
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;

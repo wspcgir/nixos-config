@@ -1,10 +1,18 @@
-{ config, pkgs, ... }:
+{ nixpkgs-unstable }: { config, pkgs, ... }:
 
 {
   system.stateVersion = "25.05";
 
   # Nix Settings
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
+  };
+  nixpkgs.overlays = [
+    (final: prev: {
+      jacket = prev.jackett.overrideAttrs (_old: { doCheck = false; });
+    })
+  ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [ # Include the results of the hardware scan.
@@ -162,7 +170,6 @@
       grim # Wayland Screenshots
       gnucash # accounting
       hledger # cli accounting
-      jackett # torrent tracker
       jq # cli json parsing
       keepassxc # password manager
       libreoffice-qt # office stuff
@@ -209,10 +216,14 @@
     user = "jeff";
   };
 
-  services.jackett.enable = true;
+  services.jackett = {
+    enable = true;
+    package = nixpkgs-unstable.jackett;
+  };
 
   services.ollama = {
     enable = true;
+    package = nixpkgs-unstable.ollama;
     acceleration = "cuda";
     loadModels = [ "qwen3:8b" "deepseek-coder:6.7b" "embeddinggemma:300m" ];
   };

@@ -51,16 +51,18 @@ in {
 
   programs.git = {
     enable = true;
-    userName = "JD95";
-    userEmail = "jeffreydwyer95@outlook.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "JD95";
+        email = "jeffreydwyer95@outlook.com";
+      };
       diff.tool = "vimdiff";
     };
   };
 
   systemd.user.services.sync-google-drive = {
     Unit = { Description = "Sync Google Drive"; };
-    Install = { WantedBy = [ "default.target" ]; };
+    Install = { WantedBy = [ ]; };
     Service = {
       Type = "oneshot";
       ExecStart = "${pkgs.writeShellScript "sync-google-drive" ''
