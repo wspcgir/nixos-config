@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
+
   home.shell.enableZshIntegration = true;
 
   home.packages = with pkgs; [

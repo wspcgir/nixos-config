@@ -1,5 +1,4 @@
-{ pkgs, ... }: 
-{
+{ pkgs, ... }: {
 
   programs.kitty.enable = true;
 
@@ -142,7 +141,7 @@
 
   programs.waybar = {
     enable = true;
-    style = builtins.readFile ./waybar/style.css;
+    style = builtins.readFile ./waybar/_style.css;
     settings = [{
       layer = "top";
       position = "top";
