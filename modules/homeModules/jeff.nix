@@ -3,7 +3,7 @@
   flake.homeModules.jeff = { pkgs, ... }:
   let
     home-dir = "/home/jeff";
-    external-drive-dir = "/run/media/jeff/easystore";
+    external-drive-dir = "/run/media/jeff/WD14TB";
   in {
     home.username = "jeff";
     home.homeDirectory = home-dir;
@@ -11,9 +11,9 @@
     imports = [ 
       self.homeModules."jeff/sops"
       self.homeModules."jeff/editors"
+      self.homeModules."jeff/zsh"
+      self.homeModules."jeff/yazi"
       (import ./jeff/_hyprland.nix)
-      (import ./jeff/_yazi.nix)
-      (import ./jeff/_zsh.nix)
     ];
   
     home.packages = with pkgs; [

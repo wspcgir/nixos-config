@@ -16,7 +16,7 @@
       })
     ];
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
   
     imports = [ # Include the results of the hardware scan.
       ./desktopModule/_hardware-configuration.nix
