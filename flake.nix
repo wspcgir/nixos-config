@@ -51,6 +51,12 @@
           permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
         };
       };
+      _module.args.pkgs-unstable = import inputs.nixpkgs-unstable {
+        inherit system;
+        config = {
+          allowUnfree = true;
+        };
+      };
     };
 
 

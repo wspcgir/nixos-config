@@ -1,6 +1,6 @@
 { withSystem, ... }: {
 
-  flake.nixosModules.desktopModule = withSystem "x86_64-linux" ({ pkgs, inputs', ... }: {
+  flake.nixosModules.desktopModule = withSystem "x86_64-linux" ({ pkgs, pkgs-unstable, inputs', ... }: {
 
     system.stateVersion = "25.05";
   
@@ -225,7 +225,7 @@
   
     services.ollama = {
       enable = true;
-      package = inputs'.nixpkgs-unstable.legacyPackages.ollama;
+      package = pkgs-unstable.ollama-cuda;
       acceleration = "cuda";
       loadModels = [ "qwen3:8b" "deepseek-coder:6.7b" "embeddinggemma:300m" ];
     };

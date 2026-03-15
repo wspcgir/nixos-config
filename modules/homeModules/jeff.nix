@@ -13,6 +13,7 @@
       self.homeModules."jeff/editors"
       self.homeModules."jeff/zsh"
       self.homeModules."jeff/yazi"
+      self.homeModules."jeff/vscode"
       (import ./jeff/_hyprland.nix)
     ];
   
