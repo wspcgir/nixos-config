@@ -17,18 +17,25 @@
       (import ./jeff/_hyprland.nix)
     ];
   
-    home.packages = with pkgs; [
-      alacritty # terminal
-      direnv
-      glance # dashboards
-      kitty # required by hyprland
-      rclone # file transfer
-      streamrip # music downloading
-      telegram-desktop
-      wlsunset # screen temperature
-      yazi
-      zoxide
-    ];
+    home.packages = let 
+      from-nixpkgs = with pkgs; [
+        alacritty # terminal
+        direnv
+        glance # dashboards
+        kitty # required by hyprland
+        rclone # file transfer
+        streamrip # music downloading
+        telegram-desktop
+        wlsunset # screen temperature
+        yt-dlp # Youtube downloader
+        yazi
+        zoxide
+      ];
+      from-self = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.gdrive-sync-all
+        self.packages.${pkgs.stdenv.hostPlatform.system}.gdrive-sync
+      ];
+    in from-nixpkgs ++ from-self;
   
     programs.bash = { enable = true; };
   
