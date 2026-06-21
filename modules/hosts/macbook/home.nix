@@ -1,4 +1,4 @@
-{ self, inputs, ... }: {
+{ self, ... }: {
 
   flake.darwinModules."macbook/home" = { ... }: {
     home-manager.useGlobalPkgs = true;
@@ -19,6 +19,7 @@
   
       home.packages = let 
         from-nixpkgs = with pkgs; [
+          nil # Nix IDE
           rclone # file transfer
           streamrip # music downloading
           yt-dlp # Youtube downloader
