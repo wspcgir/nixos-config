@@ -175,7 +175,7 @@
         musescore # music notation
         # nautilus # file manager separate from gnome
         nil # nix LSP server
-        nixfmt-classic # Nix code formatter
+        nixfmt # Nix code formatter
         obsidian # notes
         pavucontrol # GUI for audio devices 
         quodlibet # music player and library manager
