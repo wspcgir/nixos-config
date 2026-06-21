@@ -1,14 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
 
   programs.kitty.enable = true;
 
   wayland.windowManager.hyprland = {
     enable = true;
-
-    plugins = with pkgs.hyprlandPlugins; [
-      hyprexpo
-    ];
-
+    configType = "hyprlang";
     settings = {
       general = {
         # Remove space around windows
@@ -79,7 +75,6 @@
         "SUPER+CTRL,L,focusworkspaceoncurrentmonitor,m+1"
         "SUPER,mouse_up,focusworkspaceoncurrentmonitor,m+1"
         "SUPER,mouse_down,focusworkspaceoncurrentmonitor,m-1"
-        "SUPER,TAB,hyprexpo:expo,toggle"
 
         # Workspace Windows 
         "SUPER+CTRL+SHIFT,1,movetoworkspacesilent,1"
@@ -278,6 +273,7 @@
         gtk-overlay-scrolling=true
       '';
     };
+    gtk4.theme = config.gtk.theme;
   };
 
 

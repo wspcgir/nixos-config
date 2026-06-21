@@ -11,7 +11,7 @@
 
   in {
 
-    programs.vscode = let 
+    programs.vscodium = let 
       nixpkgs-extensions = with pkgs.vscode-extensions; [
         # Editing
         vscodevim.vim

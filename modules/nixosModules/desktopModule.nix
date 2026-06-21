@@ -1,20 +1,19 @@
 { withSystem, ... }: {
 
-  flake.nixosModules.desktopModule = withSystem "x86_64-linux" ({ pkgs, pkgs-unstable, inputs', ... }: {
+  flake.nixosModules.desktopModule = withSystem "x86_64-linux" ({ pkgs, inputs', ... }: {
 
     system.stateVersion = "25.05";
   
     # Nix Settings
     nixpkgs.config = {
       allowUnfree = true;
-      permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
     };
 
-    nixpkgs.overlays = [
-      (final: prev: {
-        jacket = prev.jackett.overrideAttrs (_old: { doCheck = false; });
-      })
-    ];
+# nixpkgs.overlays = [
+#      (final: prev: {
+#       jacket = prev.jackett.overrideAttrs (_old: { doCheck = false; });
+#      })
+#    ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
   
@@ -164,6 +163,7 @@
         aichat # LLM terminal interface
         age # secrets generation
         android-studio
+        android-tools
         cryptomator # encrypted vault manager
         # disabled until I can figure out
         # how to block history for KeePassXC
@@ -209,9 +209,6 @@
       nerd-fonts.dejavu-sans-mono
     ];
   
-    # For Android Studio
-    programs.adb.enable = true;
-  
     services.jellyfin = {
       enable = true;
       openFirewall = true;
@@ -220,15 +217,13 @@
   
     services.jackett = {
       enable = true;
-      package = inputs'.nixpkgs-unstable.legacyPackages.jackett;
+      package = inputs'.nixpkgs.legacyPackages.jackett;
     };
   
     services.ollama = {
-      enable = false;
-      package = pkgs-unstable.ollama-cuda;
-      acceleration = "cuda";
+      enable = true;
+      package = pkgs.ollama-cuda;
       loadModels = [ "qwen3:8b" "deepseek-coder:6.7b" "embeddinggemma:300m" ];
     };
-  
   });
 }

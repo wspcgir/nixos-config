@@ -1,11 +1,8 @@
 {
   description = "NixOS flake";
   inputs = {
-    # Nix package set, pinned to version 25.11
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-
-    # Nix package set, unstable (latest versions) 
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Nix package set
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # Utilities for structuring the configuration
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -14,7 +11,7 @@
     import-tree.url = "github:vic/import-tree";
 
     # Modules to define user packages, services and dot files 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Secrets management within config 
@@ -45,13 +42,6 @@
 
     perSystem = { system, ... }: {
       _module.args.pkgs = import inputs.nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
-        };
-      };
-      _module.args.pkgs-unstable = import inputs.nixpkgs-unstable {
         inherit system;
         config = {
           allowUnfree = true;

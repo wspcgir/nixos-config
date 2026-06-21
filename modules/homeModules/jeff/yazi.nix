@@ -9,6 +9,7 @@
 
     programs.yazi = {
       enable = true;
+      shellWrapperName = "y";
       plugins = {
         rsync = pkgs.yaziPlugins.rsync;
         mount = pkgs.yaziPlugins.mount;
