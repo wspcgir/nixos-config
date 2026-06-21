@@ -9,12 +9,6 @@
       allowUnfree = true;
     };
 
-# nixpkgs.overlays = [
-#      (final: prev: {
-#       jacket = prev.jackett.overrideAttrs (_old: { doCheck = false; });
-#      })
-#    ];
-
     nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
   
     imports = [ # Include the results of the hardware scan.
