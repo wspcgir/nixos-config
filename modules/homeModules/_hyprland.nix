@@ -5,6 +5,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "hyprlang";
+    systemd.enable = false;
     settings = {
       general = {
         # Remove space around windows
@@ -16,8 +17,8 @@
         "monitor=DP-4,2560x1440@169.83,1920x0,1"
       ];
       windowrule = [
-        "noinitialfocus,floating:1,class:^(jetbrains-.*)$,title:^(win[0-9]+)$"
-        "float,floating:1,class:^(jetbrains-.*)$,title:^(win[0-9]+)$"
+        "match:class ^(jetbrains-.*)$ match:title ^(win[0-9]+)$, float 1"
+        "match:class ^(jetbrains-.*)$ match:title ^(win[0-9]+)$, no_initial_focus 1"
       ];
       decoration = {
         # https://wiki.hypr.land/Configuring/Variables/#blur
@@ -213,7 +214,7 @@
         "/home/jeff/Pictures/wallpapers/penrose_7.png"
         "/home/jeff/Pictures/wallpapers/penrose_8.png"
       ];
-      wallpaper = [ ",/home/jeff/Pictures/wallpapers/penrose_1.png" ];
+      wallpaper = [ { monitor = ""; path = ",/home/jeff/Pictures/wallpapers/penrose_1.png"; } ];
     };
   };
 

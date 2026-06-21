@@ -73,6 +73,8 @@
     # For Login screen
     services.displayManager.sddm.enable = true;
     programs.hyprland.enable = true;
+    programs.hyprland.withUWSM = true;
+    services.dbus.enable = true;
     # For running commands as sudo
     security.polkit.enable = true;
   
