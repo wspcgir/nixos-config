@@ -18,7 +18,7 @@
         self.homeModules.alacritty
         self.homeModules.direnv
         self.homeModules.udiskie
-        (import ../homeModules/_hyprland.nix)
+        (import ../../homeModules/_hyprland.nix)
       ];
   
       home.packages = let 
@@ -39,7 +39,7 @@
   
       programs.bash = { enable = true; };
 
-      programs.vscodeCustom = {
+      programs.vscodium.custom = {
         enable = true;
         languages.nix.enable = true;
         languages.haskell.enable = true;
