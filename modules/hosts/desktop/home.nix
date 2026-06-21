@@ -18,7 +18,7 @@
         self.homeModules.alacritty
         self.homeModules.direnv
         self.homeModules.udiskie
-        (import ../../homeModules/_hyprland.nix)
+        self.homeModules.hyprland
       ];
   
       home.packages = let 
