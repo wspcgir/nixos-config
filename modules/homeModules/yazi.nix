@@ -1,6 +1,6 @@
 { ... }: {
 
-  flake.homeModules."jeff/yazi" = { pkgs, ... }: {
+  flake.homeModules.yazi = { pkgs, ... }: {
 
     programs.zoxide = {
       enable = true;
@@ -14,11 +14,6 @@
         rsync = pkgs.yaziPlugins.rsync;
         mount = pkgs.yaziPlugins.mount;
       };
-    };
-
-    services.udiskie = {
-      enable = true;
-      automount = true;
     };
   };
 }

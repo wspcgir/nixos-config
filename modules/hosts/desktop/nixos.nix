@@ -1,6 +1,6 @@
 { withSystem, ... }: {
 
-  flake.nixosModules.desktopModule = withSystem "x86_64-linux" ({ pkgs, inputs', ... }: {
+  flake.nixosModules."desktop/nixos" = withSystem "x86_64-linux" ({ pkgs, inputs', ... }: {
 
     system.stateVersion = "25.05";
   
@@ -18,7 +18,7 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
   
     imports = [ # Include the results of the hardware scan.
-      ./desktopModule/_hardware-configuration.nix
+      ./_hardware-configuration.nix
     ];
   
     # Bootloader.
@@ -196,10 +196,6 @@
         wofi-emoji # emoji picker
         zoom-us
       ];
-    };
-  
-    programs.steam = {
-      enable = true;
     };
   
     # Fonts

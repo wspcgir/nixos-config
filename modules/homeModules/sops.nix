@@ -1,6 +1,6 @@
 { flakeRoot, inputs, ... }: {
 
-  flake.homeModules."jeff/sops" = { self, ... }: {
+  flake.homeModules.sops = { self, ... }: {
 
     imports = [ inputs.sops-nix.homeManagerModules.sops ];
 

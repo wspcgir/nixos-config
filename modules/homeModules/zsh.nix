@@ -1,5 +1,5 @@
 { ... }: {
-  flake.homeModules."jeff/zsh" = { pkgs, ... }: let 
+  flake.homeModules.zsh = { pkgs, ... }: let 
     aliases = {
       v = "vi";
       g = "git status";

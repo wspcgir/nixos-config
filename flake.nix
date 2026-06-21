@@ -10,6 +10,10 @@
     # Utility for auto importing configuration files
     import-tree.url = "github:vic/import-tree";
 
+    # MacOS Configuration
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     # Modules to define user packages, services and dot files 
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,29 +30,39 @@
 
   }; 
 
-  outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } ({ self, ... }: 
+  outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } ({ self, lib, ... }: 
   let 
       # The root of the project, useful for referencing files 
       # without needing lots of ../../..
       flakeRoot = ./.;
   in { 
 
-    # All of the supported systems the configuratiosn support 
-    systems = [ "x86_64-linux" ];
+    config = {
+      # All of the supported systems the configuratiosn support 
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
 
-    _module.args = {
-      inherit flakeRoot;
-    };
+      _module.args = {
+        inherit flakeRoot;
+      };
 
-    perSystem = { system, ... }: {
-      _module.args.pkgs = import inputs.nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
+      perSystem = { system, ... }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
         };
       };
+
     };
 
+    options.flake = {
+      darwinModules = lib.mkOption {
+        type = lib.types.lazyAttrsOf lib.types.deferredModule;
+        default = {};
+        description = "A set of reusable nix-darwin modules exported by this flake.";
+      };
+    };
 
     # Use import-tree to auto import everything in 
     # the modules directory

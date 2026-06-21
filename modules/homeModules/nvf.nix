@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  flake.homeModules."jeff/editors" = { pkgs, lib, ... }: { 
+  flake.homeModules.nvf = { pkgs, lib, ... }: { 
 
     imports = [ inputs.nvf.homeManagerModules.default ];
   
