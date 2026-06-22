@@ -28,6 +28,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Music track classifier 
+    music-curator = { 
+      url = "github:wspcgir/music-library-curator";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

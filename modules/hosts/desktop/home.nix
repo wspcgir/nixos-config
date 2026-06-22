@@ -1,4 +1,4 @@
-{ self, ... }: {
+{ self, inputs,... }: {
 
   flake.nixosModules."desktop/home" = { ... }: {
     home-manager.useGlobalPkgs = true;
@@ -37,8 +37,11 @@
             self.packages.${pkgs.stdenv.hostPlatform.system}.gdrive-sync-all
             self.packages.${pkgs.stdenv.hostPlatform.system}.gdrive-sync
           ];
+          from-flakes = [
+            inputs.music-curator.packages.${pkgs.stdenv.hostPlatform.system}.music-curator
+          ];
         in
-        from-nixpkgs ++ from-self;
+        from-nixpkgs ++ from-self ++ from-flakes;
 
       programs.bash = {
         enable = true;
