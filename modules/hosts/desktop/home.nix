@@ -23,6 +23,7 @@
   
       home.packages = let 
         from-nixpkgs = with pkgs; [
+          cavasik # Audio visualizer
           glance # dashboards
           kitty # required by hyprland
           rclone # file transfer
