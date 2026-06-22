@@ -1,4 +1,4 @@
- { ... }: {
+{ ... }: {
 
   flake.homeModules.udiskie = { pkgs, ... }: {
     services.udiskie = {

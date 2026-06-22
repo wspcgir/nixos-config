@@ -10,7 +10,7 @@
       secrets = {
         "accounts/google/user" = { };
         "accounts/google/pass" = { };
-        "services/glance/feeds/politics" = { 
+        "services/glance/feeds/politics" = {
           format = "yaml";
         };
       };

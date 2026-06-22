@@ -1,8 +1,8 @@
-{...}: {
+{ ... }: {
   flake.homeModules.hyprland = { pkgs, config, ... }: {
 
     programs.kitty.enable = true;
-  
+
     wayland.windowManager.hyprland = {
       enable = true;
       configType = "hyprlang";
@@ -13,8 +13,8 @@
           gaps_out = 0;
           gaps_in = 0;
         };
-        monitor = [ 
-          ",preferred,auto,1" 
+        monitor = [
+          ",preferred,auto,1"
           "monitor=DP-4,2560x1440@169.83,1920x0,1"
         ];
         windowrule = [
@@ -36,33 +36,33 @@
           ''SUPER,P,exec,grim -g "$(slurp)" - | swappy -f -''
           # bind to .
           "SUPER,code:60,exec,wofi-emoji"
-  
+
           # Launch Applications
           "SUPER,Return,exec,alacritty"
           "SUPER,SPACE,exec,wofi --show drun"
-  
+
           # Focused Window
           "SUPER,H,movefocus,l"
           "SUPER,J,movefocus,d"
           "SUPER,K,movefocus,u"
           "SUPER,L,movefocus,r"
-  
-          # Window Position 
+
+          # Window Position
           "SUPER+SHIFT,H,movewindow,l"
           "SUPER+SHIFT,J,movewindow,d"
           "SUPER+SHIFT,K,movewindow,u"
           "SUPER+SHIFT,L,movewindow,r"
-  
+
           # Window Size
           "SUPER+ALT,H,resizeactive,-50 0"
           "SUPER+ALT,J,resizeactive,0 -50"
           "SUPER+ALT,K,resizeactive,0 50"
           "SUPER+ALT,L,resizeactive,50 0"
-  
+
           # Window State
           "SUPER,Q,killactive"
           "SUPER,F,togglefloating,"
-  
+
           # Workspace Focus
           "SUPER+CTRL,1,focusworkspaceoncurrentmonitor,1"
           "SUPER+CTRL,2,focusworkspaceoncurrentmonitor,2"
@@ -77,8 +77,8 @@
           "SUPER+CTRL,L,focusworkspaceoncurrentmonitor,m+1"
           "SUPER,mouse_up,focusworkspaceoncurrentmonitor,m+1"
           "SUPER,mouse_down,focusworkspaceoncurrentmonitor,m-1"
-  
-          # Workspace Windows 
+
+          # Workspace Windows
           "SUPER+CTRL+SHIFT,1,movetoworkspacesilent,1"
           "SUPER+CTRL+SHIFT,2,movetoworkspacesilent,2"
           "SUPER+CTRL+SHIFT,3,movetoworkspacesilent,3"
@@ -91,17 +91,17 @@
           "SUPER+CTRL+SHIFT,H,movetoworkspacesilent,r-1"
           "SUPER+CTRL+SHIFT,L,movetoworkspacesilent,r+1"
           "SUPER,M,movetoworkspacesilent,emptym+1"
-  
+
           # Volume Controls
           "CTRL,F6,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
           "CTRL,F7,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
         ];
-        bindm = [ 
+        bindm = [
           "SUPER,mouse:272,movewindow"
-          "SUPER,mouse:273,resizewindow" 
+          "SUPER,mouse:273,resizewindow"
         ];
         cursor = {
-          # Prevents stutter when customizing 
+          # Prevents stutter when customizing
           # the cursor
           no_hardware_cursors = true;
         };
@@ -135,41 +135,48 @@
         };
       };
     };
-  
+
     programs.waybar = {
       enable = true;
       style = builtins.readFile ./waybar/_style.css;
-      settings = [{
-        layer = "top";
-        position = "top";
-        mod = "dock";
-        exclusive = true;
-        passthrough = false;
-        gtk-layer-shell = true;
-        height = 0;
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ ];
-        modules-right = [ "pulseaudio" "custom/divider" "clock" "custom/space" ];
-        pulseaudio = {
-          format = "{icon} {volume}%";
-          tooltip = false;
-          format-muted = "Muted";
-        };
-        "custom/divider" = {
-          format = " | ";
-          interval = "once";
-          tooltip = false;
-        };
-        "custom/space" = {
-          format = " ";
-          interval = "once";
-          tooltip = false;
-        };
-      }];
+      settings = [
+        {
+          layer = "top";
+          position = "top";
+          mod = "dock";
+          exclusive = true;
+          passthrough = false;
+          gtk-layer-shell = true;
+          height = 0;
+          modules-left = [ "hyprland/workspaces" ];
+          modules-center = [ ];
+          modules-right = [
+            "pulseaudio"
+            "custom/divider"
+            "clock"
+            "custom/space"
+          ];
+          pulseaudio = {
+            format = "{icon} {volume}%";
+            tooltip = false;
+            format-muted = "Muted";
+          };
+          "custom/divider" = {
+            format = " | ";
+            interval = "once";
+            tooltip = false;
+          };
+          "custom/space" = {
+            format = " ";
+            interval = "once";
+            tooltip = false;
+          };
+        }
+      ];
     };
-  
+
     programs.wofi.enable = true;
-  
+
     programs.hyprlock = {
       enable = true;
       settings = {
@@ -189,19 +196,19 @@
             monitor = "DP-4";
             dots_center = true;
             fade_on_empty = false;
-            font_color = "rgb(202, 211, 245)"; 
-            inner_color = "rgb(91, 96, 120)"; 
-            outer_color = "rgb(24, 25, 38)"; 
+            font_color = "rgb(202, 211, 245)";
+            inner_color = "rgb(91, 96, 120)";
+            outer_color = "rgb(24, 25, 38)";
             outline_thickness = 5;
           }
         ];
       };
     };
-  
+
     services.mako.enable = true;
-  
+
     services.hypridle.enable = true;
-  
+
     services.hyprpaper = {
       enable = true;
       settings = {
@@ -215,16 +222,21 @@
           "/home/jeff/Pictures/wallpapers/penrose_7.png"
           "/home/jeff/Pictures/wallpapers/penrose_8.png"
         ];
-        wallpaper = [ { monitor = ""; path = ",/home/jeff/Pictures/wallpapers/penrose_1.png"; } ];
+        wallpaper = [
+          {
+            monitor = "";
+            path = ",/home/jeff/Pictures/wallpapers/penrose_1.png";
+          }
+        ];
       };
     };
-  
+
     services.wlsunset = {
       enable = true;
       latitude = 34.03;
       longitude = -118.35;
     };
-  
+
     dconf = {
       enable = true;
       settings = {
@@ -234,19 +246,19 @@
         };
       };
     };
-  
+
     qt = {
       enable = true;
       platformTheme.name = "gtk";
     };
-  
+
     home.pointerCursor = {
       gtk.enable = true;
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Classic";
       size = 12;
     };
-  
+
     gtk = {
       enable = true;
       iconTheme = {
@@ -277,7 +289,6 @@
       };
       gtk4.theme = config.gtk.theme;
     };
-  
-  
-    };
+
+  };
 }
