@@ -207,8 +207,6 @@
 
     services.mako.enable = true;
 
-    services.hypridle.enable = true;
-
     services.hyprpaper = {
       enable = true;
       settings = {
