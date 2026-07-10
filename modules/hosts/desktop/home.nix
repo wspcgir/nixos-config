@@ -34,9 +34,10 @@
             wlsunset # screen temperature
             yt-dlp # Youtube downloader
           ];
-          from-self = [
-            self.packages.${pkgs.stdenv.hostPlatform.system}.gdrive-sync-all
-            self.packages.${pkgs.stdenv.hostPlatform.system}.gdrive-sync
+          from-self = with self.packages.${pkgs.stdenv.hostPlatform.system}; [
+            gdrive-sync-all
+            gdrive-sync
+            usb-restart
           ];
           from-flakes = [
             inputs.music-curator.packages.${pkgs.stdenv.hostPlatform.system}.music-curator

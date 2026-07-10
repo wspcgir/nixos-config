@@ -122,22 +122,7 @@
         jellyfin-ffmpeg
         ntfs3g
       ];
-      systemd.services.usb-restart = {
-        enable = true;
-        description = "Restart USBs after suspension";
-        after = [ "suspend.target" ];
-        wantedBy = [ "suspend.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${pkgs.writeShellScript "usb-restart" ''
-              ${pkgs.coreutils}/bin/echo "Starting usb-restart"
-              ${pkgs.coreutils}/bin/echo "Disabling usb port 6"
-              ${pkgs.kmod}/bin/modprobe -r xhci_pci
-              ${pkgs.coreutils}/bin/echo "Enabling usb port 6"
-            	${pkgs.kmod}/bin/modprobe xhci_pci
-          ''}";
-        };
-      };
+
       systemd.services."systemd-suspend" = {
         serviceConfig = {
           Environment = ''"SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false"'';
