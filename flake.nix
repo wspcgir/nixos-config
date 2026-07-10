@@ -28,8 +28,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Music track classifier 
-    music-curator = { 
+    # Music track classifier
+    music-curator = {
       url = "github:wspcgir/music-library-curator";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -73,6 +73,14 @@
             type = lib.types.lazyAttrsOf lib.types.deferredModule;
             default = { };
             description = "A set of reusable nix-darwin modules exported by this flake.";
+          };
+        };
+
+        options = {
+          common-lib = lib.mkOption {
+            type = lib.types.lazyAttrsOf lib.types.raw;
+            default = { };
+            description = "Extensible global library expressions";
           };
         };
 

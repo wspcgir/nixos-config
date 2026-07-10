@@ -207,28 +207,6 @@
 
     services.mako.enable = true;
 
-    services.hyprpaper = {
-      enable = true;
-      settings = {
-        preload = [
-          "/home/jeff/Pictures/wallpapers/penrose_1.png"
-          "/home/jeff/Pictures/wallpapers/penrose_2.png"
-          "/home/jeff/Pictures/wallpapers/penrose_3.png"
-          "/home/jeff/Pictures/wallpapers/penrose_4.png"
-          "/home/jeff/Pictures/wallpapers/penrose_5.png"
-          "/home/jeff/Pictures/wallpapers/penrose_6.png"
-          "/home/jeff/Pictures/wallpapers/penrose_7.png"
-          "/home/jeff/Pictures/wallpapers/penrose_8.png"
-        ];
-        wallpaper = [
-          {
-            monitor = "";
-            path = ",/home/jeff/Pictures/wallpapers/penrose_1.png";
-          }
-        ];
-      };
-    };
-
     services.wlsunset = {
       enable = true;
       latitude = 34.03;

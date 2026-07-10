@@ -1,6 +1,5 @@
-{ ... }: {
+{ config, ... }: {
   flake.homeModules.zsh =
-    { pkgs, ... }:
     let
       aliases = {
         v = "vi";
@@ -12,16 +11,24 @@
         gpsh = "git push";
         gs = "git stash";
       };
+
+      colorAliases = config.common-lib.map-attrs ({ name, value }: {
+        name = name;
+        value = "printf \"\\033]11;#${value}\\007\"";
+      }) config.common-lib.colors;
+
       nonSudoAliases = {
         nrs = "sudo nixos-rebuild switch";
       }
-      // aliases;
-      mkSudo = { name, value }: {
+      // aliases
+      // colorAliases;
+
+      sudoAliases = config.common-lib.map-attrs ({ name, value }: {
         name = "s${name}";
         value = "sudo ${value}";
-      };
-      sudoAliases = builtins.listToAttrs <| builtins.map mkSudo <| pkgs.lib.attrsToList aliases;
+      }) aliases;
     in
+    { pkgs, ... }:
     {
 
       home.shell.enableZshIntegration = true;

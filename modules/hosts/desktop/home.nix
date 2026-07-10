@@ -1,4 +1,4 @@
-{ self, inputs,... }: {
+{ self, inputs, ... }: {
 
   flake.nixosModules."desktop/home" = { ... }: {
     home-manager.useGlobalPkgs = true;
@@ -19,6 +19,7 @@
         self.homeModules.direnv
         self.homeModules.udiskie
         self.homeModules.hyprland
+        self.homeModules.wallpaperSwitcher
       ];
 
       home.packages =
