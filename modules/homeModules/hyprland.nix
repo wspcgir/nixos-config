@@ -1,7 +1,18 @@
-{ ... }: {
+{ self, lib, ... }: {
+
   flake.homeModules.hyprland = { pkgs, config, ... }: {
 
     programs.kitty.enable = true;
+
+    hyprland.startupServices = [
+      "waybar"
+      "mako"
+      "nm-applet"
+      "hyprpaper"
+      "blueman-applet"
+      # For password prompts
+      "lxsession"
+    ];
 
     wayland.windowManager.hyprland = {
       enable = true;
@@ -31,6 +42,7 @@
             popups = true;
           };
         };
+
         bind = [
           "SUPER+CTRL,Q,exec,hyprlock"
           ''SUPER,P,exec,grim -g "$(slurp)" - | swappy -f -''
@@ -118,15 +130,6 @@
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
         };
-        exec-once = [
-          "waybar"
-          "mako"
-          "nm-applet"
-          "hyprpaper"
-          "blueman-applet"
-          # For password prompts
-          "lxsession"
-        ];
         input = {
           kb_layout = "us";
           kb_options = [ "ctrl:nocaps" ];
@@ -148,6 +151,7 @@
           passthrough = false;
           gtk-layer-shell = true;
           height = 0;
+          "reload_style_on_change" = true;
           modules-left = [ "hyprland/workspaces" ];
           modules-center = [ ];
           modules-right = [

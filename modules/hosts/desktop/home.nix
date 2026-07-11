@@ -18,6 +18,7 @@
         self.homeModules.alacritty
         self.homeModules.direnv
         self.homeModules.udiskie
+        self.homeModules.base-hyprland
         self.homeModules.hyprland
         self.homeModules.wallpaperSwitcher
       ];

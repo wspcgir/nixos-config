@@ -1,5 +1,5 @@
 window#waybar {
-  background-color: #000000;
-  opacity: 1;
+  background-color: rgba(0,0,0,0.25);
   border: none;
+  color: #ffffff;
 }

@@ -63,16 +63,13 @@
         workspace-wallpaper
       ];
 
-      wayland.windowManager.hyprland = {
-        enable = true;
-        settings = {
-          exec-once = [
-            # Start the awww daemon background process
-            "${pkgs.awww}/bin/awww-daemon"
-            # Start our workspace tracking daemon
-            "${workspace-wallpaper}/bin/workspace-wallpaper"
-          ];
-        };
-      };
+      hyprland.startupServices = [
+        # Start the awww daemon background process
+        "${pkgs.awww}/bin/awww-daemon"
+        # Start our workspace tracking daemon
+        "${workspace-wallpaper}/bin/workspace-wallpaper"
+      ];
+
+      wayland.windowManager.hyprland.enable = true;
     };
 }
