@@ -102,6 +102,8 @@
           "SUPER+CTRL+SHIFT,9,movetoworkspacesilent,9"
           "SUPER+CTRL+SHIFT,H,movetoworkspacesilent,r-1"
           "SUPER+CTRL+SHIFT,L,movetoworkspacesilent,r+1"
+          "SUPER+CTRL,mouse_up,movetoworkspacesilent,m+1"
+          "SUPER+CTRL,mouse_down,movetoworkspacesilent,m-1"
           "SUPER,M,movetoworkspacesilent,emptym+1"
 
           # Volume Controls
