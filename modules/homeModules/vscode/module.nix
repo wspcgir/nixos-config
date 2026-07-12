@@ -1,4 +1,4 @@
-{ ... }: {
+module@{ ... }: {
   flake.homeModules.vscodeCustom =
     {
       config,
@@ -86,14 +86,8 @@
               }) allExtensions
             );
 
-          in
-          {
-            enable = true;
+            mkProfile = settings: {
 
-            # Use the patched version if continue is active, otherwise stick to standard
-            package = if cfg.continue.enable then patchedCodium else pkgs.vscodium;
-
-            profiles.default = {
               extensions = allExtensions;
 
               userSettings = lib.mkMerge [
@@ -119,8 +113,27 @@
                 (lib.mkIf cfg.languages.prolog.enable {
                   "prolog.executablePath" = "swipl";
                 })
+                settings
               ];
             };
+
+          in
+          {
+            enable = true;
+
+            # Use the patched version if continue is active, otherwise stick to standard
+            package = if cfg.continue.enable then patchedCodium else pkgs.vscodium;
+
+            profiles = module.config.common-lib.map-attrs 
+              ({name, value}: {
+                name = name;
+                value = mkProfile { 
+                  "workbench.colorCustomizations" = { 
+                    "titleBar.activeBackground" = "#${value}"; 
+                  }; 
+                };
+              })
+              module.config.common-lib.colors;
           };
 
         # --- Conditional Continue Configuration Files ---
