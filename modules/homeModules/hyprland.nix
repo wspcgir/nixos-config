@@ -1,4 +1,4 @@
-{ self, lib, ... }: {
+module: {
 
   flake.homeModules.hyprland = { pkgs, config, ... }: {
 
@@ -43,82 +43,83 @@
           };
         };
 
-        bind = [
-          "SUPER+CTRL,Q,exec,hyprlock"
-          ''SUPER,P,exec,grim -g "$(slurp)" - | swappy -f -''
-          # bind to .
-          "SUPER,code:60,exec,wofi-emoji"
+        bind = let
+          perWorkspace = mod: cmd: builtins.map 
+            (i: "${mod},${builtins.toString i},${cmd},${builtins.toString i}") 
+            [1 2 3 4 5 6 7 8 9];
+        in module.config.common-lib.attr-values-flat {
+          window = {
+            position = [
+              "SUPER+SHIFT,H,movewindow,l"
+              "SUPER+SHIFT,J,movewindow,d"
+              "SUPER+SHIFT,K,movewindow,u"
+              "SUPER+SHIFT,L,movewindow,r"
+            ];
 
-          # Launch Applications
-          "SUPER,Return,exec,alacritty"
-          "SUPER,SPACE,exec,wofi --show drun"
+            focus = [
+              "SUPER,H,movefocus,l"
+              "SUPER,J,movefocus,d"
+              "SUPER,K,movefocus,u"
+              "SUPER,L,movefocus,r"
+            ];
 
-          # Focused Window
-          "SUPER,H,movefocus,l"
-          "SUPER,J,movefocus,d"
-          "SUPER,K,movefocus,u"
-          "SUPER,L,movefocus,r"
+            size = [
+              "SUPER+ALT,H,resizeactive,-50 0"
+              "SUPER+ALT,J,resizeactive,0 -50"
+              "SUPER+ALT,K,resizeactive,0 50"
+              "SUPER+ALT,L,resizeactive,50 0"
+            ];
 
-          # Window Position
-          "SUPER+SHIFT,H,movewindow,l"
-          "SUPER+SHIFT,J,movewindow,d"
-          "SUPER+SHIFT,K,movewindow,u"
-          "SUPER+SHIFT,L,movewindow,r"
+            state = [
+              "SUPER,Q,killactive"
+              "SUPER,F,togglefloating,"
+            ];
+          };
 
-          # Window Size
-          "SUPER+ALT,H,resizeactive,-50 0"
-          "SUPER+ALT,J,resizeactive,0 -50"
-          "SUPER+ALT,K,resizeactive,0 50"
-          "SUPER+ALT,L,resizeactive,50 0"
+          launch.application = [
+            "SUPER,Return,exec,alacritty"
+            "SUPER,SPACE,exec,wofi --show drun"
+          ];
 
-          # Window State
-          "SUPER,Q,killactive"
-          "SUPER,F,togglefloating,"
+          workspace = {
+            focus = perWorkspace "SUPER+CTRL" "focusworkspaceoncurrentmonitor" ++ [
+              "SUPER+CTRL,H,focusworkspaceoncurrentmonitor,m-1"
+              "SUPER+CTRL,L,focusworkspaceoncurrentmonitor,m+1"
+              "SUPER+CTRL,mouse_up,focusworkspaceoncurrentmonitor,m+1"
+              "SUPER+CTRL,mouse_down,focusworkspaceoncurrentmonitor,m-1"
+            ];
 
-          # Workspace Focus
-          "SUPER+CTRL,1,focusworkspaceoncurrentmonitor,1"
-          "SUPER+CTRL,2,focusworkspaceoncurrentmonitor,2"
-          "SUPER+CTRL,3,focusworkspaceoncurrentmonitor,3"
-          "SUPER+CTRL,4,focusworkspaceoncurrentmonitor,4"
-          "SUPER+CTRL,5,focusworkspaceoncurrentmonitor,5"
-          "SUPER+CTRL,6,focusworkspaceoncurrentmonitor,6"
-          "SUPER+CTRL,7,focusworkspaceoncurrentmonitor,7"
-          "SUPER+CTRL,8,focusworkspaceoncurrentmonitor,8"
-          "SUPER+CTRL,9,focusworkspaceoncurrentmonitor,9"
-          "SUPER+CTRL,H,focusworkspaceoncurrentmonitor,m-1"
-          "SUPER+CTRL,L,focusworkspaceoncurrentmonitor,m+1"
-          "SUPER+CTRL,mouse_up,focusworkspaceoncurrentmonitor,m+1"
-          "SUPER+CTRL,mouse_down,focusworkspaceoncurrentmonitor,m-1"
+            shift = perWorkspace "SUPER+CTRL+SHIFT" "movetoworkspacesilent" ++ [
+              "SUPER+CTRL+SHIFT,H,movetoworkspacesilent,r-1"
+              "SUPER+CTRL+SHIFT,L,movetoworkspacesilent,r+1"
+              "SUPER+SHIFT,mouse_up,movetoworkspacesilent,r+1"
+              "SUPER+SHIFT,mouse_down,movetoworkspacesilent,r-1"
+              "SUPER,M,movetoworkspacesilent,emptym+1"
+            ];
+          };
 
-          # Workspace Windows
-          "SUPER+CTRL+SHIFT,1,movetoworkspacesilent,1"
-          "SUPER+CTRL+SHIFT,2,movetoworkspacesilent,2"
-          "SUPER+CTRL+SHIFT,3,movetoworkspacesilent,3"
-          "SUPER+CTRL+SHIFT,4,movetoworkspacesilent,4"
-          "SUPER+CTRL+SHIFT,5,movetoworkspacesilent,5"
-          "SUPER+CTRL+SHIFT,6,movetoworkspacesilent,6"
-          "SUPER+CTRL+SHIFT,7,movetoworkspacesilent,7"
-          "SUPER+CTRL+SHIFT,8,movetoworkspacesilent,8"
-          "SUPER+CTRL+SHIFT,9,movetoworkspacesilent,9"
-          "SUPER+CTRL+SHIFT,H,movetoworkspacesilent,r-1"
-          "SUPER+CTRL+SHIFT,L,movetoworkspacesilent,r+1"
-          "SUPER+SHIFT,mouse_up,movetoworkspacesilent,r+1"
-          "SUPER+SHIFT,mouse_down,movetoworkspacesilent,r-1"
-          "SUPER,M,movetoworkspacesilent,emptym+1"
+          volume = [
+            "CTRL,F6,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+            "CTRL,F7,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+          ];
+          misc = [
+            "SUPER+CTRL,Q,exec,hyprlock"
+            ''SUPER,P,exec,grim -g "$(slurp)" - | swappy -f -''
+            "SUPER,code:60,exec,wofi-emoji"
+          ];
+        };
 
-          # Volume Controls
-          "CTRL,F6,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          "CTRL,F7,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ];
         bindm = [
           "SUPER,mouse:272,movewindow"
           "SUPER,mouse:273,resizewindow"
         ];
+
         cursor = {
           # Prevents stutter when customizing
           # the cursor
           no_hardware_cursors = true;
         };
+
         plugin = {
           hyprexpo = {
             columns = 3;
@@ -126,12 +127,14 @@
             bg_col = "rgb(111111)";
           };
         };
+
         misc = {
           # Makes resizing windows a bit smoother
           animate_manual_resizes = true;
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
         };
+
         input = {
           kb_layout = "us";
           kb_options = [ "ctrl:nocaps" ];
