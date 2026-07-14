@@ -20,6 +20,7 @@
         self.homeModules.udiskie
         self.homeModules.base-hyprland
         self.homeModules.hyprland
+        self.homeModules.waybar
         self.homeModules.wallpaperSwitcher
       ];
 
