@@ -4,21 +4,21 @@
     { pkgs, config, ... }:
 
     let
-      workspace-wallpaper = pkgs.writeShellScriptBin "workspace-wallpaper" ''
+      workspace-wallpaper = with config.common-lib.colors; pkgs.writeShellScriptBin "workspace-wallpaper" ''
         # Map workspace IDs to Hex colors (awww expects pure RRGGBB hex format)
         get_color() {
           case "$1" in
-            "1")  echo "b4befe" ;; # Lavender
-            "2")  echo "fab387" ;; # Peach
-            "3")  echo "74c7ec" ;; # Sapphire
-            "4")  echo "eba0ac" ;; # Maroon
-            "5")  echo "89dceb" ;; # Teal
-            "6")  echo "f2cdcd" ;; # Flamingo
-            "7")  echo "a6e3a1" ;; # Green
-            "8")  echo "cba6f7" ;; # Mauve
-            "9")  echo "f9e2af" ;; # Yellow
-            "10") echo "f5e0dc" ;; # Rosewater
-            *)    echo "313244" ;; # Fallback
+            "1")  echo "${lavender}"
+            "2")  echo "${peach}" 
+            "3")  echo "${sapphire}" 
+            "4")  echo "${maroon}" 
+            "5")  echo "${teal}" 
+            "6")  echo "${flamingo}" 
+            "7")  echo "${green}" 
+            "8")  echo "${mauve}" 
+            "9")  echo "${yellow}" 
+            "10") echo "${rosewater}" 
+            *)    echo "${default}"
           esac
         }
 
