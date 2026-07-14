@@ -87,8 +87,8 @@
           "SUPER+CTRL,9,focusworkspaceoncurrentmonitor,9"
           "SUPER+CTRL,H,focusworkspaceoncurrentmonitor,m-1"
           "SUPER+CTRL,L,focusworkspaceoncurrentmonitor,m+1"
-          "SUPER,mouse_up,focusworkspaceoncurrentmonitor,m+1"
-          "SUPER,mouse_down,focusworkspaceoncurrentmonitor,m-1"
+          "SUPER+CTRL,mouse_up,focusworkspaceoncurrentmonitor,m+1"
+          "SUPER+CTRL,mouse_down,focusworkspaceoncurrentmonitor,m-1"
 
           # Workspace Windows
           "SUPER+CTRL+SHIFT,1,movetoworkspacesilent,1"
@@ -102,8 +102,8 @@
           "SUPER+CTRL+SHIFT,9,movetoworkspacesilent,9"
           "SUPER+CTRL+SHIFT,H,movetoworkspacesilent,r-1"
           "SUPER+CTRL+SHIFT,L,movetoworkspacesilent,r+1"
-          "SUPER+CTRL,mouse_up,movetoworkspacesilent,m+1"
-          "SUPER+CTRL,mouse_down,movetoworkspacesilent,m-1"
+          "SUPER+SHIFT,mouse_up,movetoworkspacesilent,r+1"
+          "SUPER+SHIFT,mouse_down,movetoworkspacesilent,r-1"
           "SUPER,M,movetoworkspacesilent,emptym+1"
 
           # Volume Controls
@@ -157,15 +157,42 @@
           modules-left = [ "hyprland/workspaces" ];
           modules-center = [ ];
           modules-right = [
+            "tray"
+            "custom/divider"
+            "cpu"
+            "custom/divider"
+            "memory"
+            "custom/divider"
+            "network"
+            "custom/divider"
             "pulseaudio"
             "custom/divider"
             "clock"
             "custom/space"
           ];
+          tray = {
+            icon-size = 10;
+            spacing = 10;
+            show-passive-items = true;
+          };
+          cpu = {
+            interval = 10;
+            format = "cpu:{usage}%";
+            tooltip = false;
+          };
+          memory = {
+            interval = 10;
+            format = "mem:{}%";
+          };
           pulseaudio = {
             format = "{icon} {volume}%";
             tooltip = false;
             format-muted = "Muted";
+            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+          };
+          network = {
+            format-ethernet = "📡 {ipaddr}/{cidr}";
+            format-disconnected = "Disconnected";
           };
           "custom/divider" = {
             format = " | ";

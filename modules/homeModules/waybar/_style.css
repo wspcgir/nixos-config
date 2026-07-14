@@ -3,3 +3,19 @@ window#waybar {
   border: none;
   color: #ffffff;
 }
+
+#tray {
+    padding: 0 10px;
+    margin: 0 4px;
+    background-color: #383c4a;
+    border-radius: 4px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
