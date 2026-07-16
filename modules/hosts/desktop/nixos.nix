@@ -1,7 +1,7 @@
 { withSystem, ... }: {
 
   flake.nixosModules."desktop/nixos" = withSystem "x86_64-linux" (
-    { pkgs, inputs', ... }: {
+    { pkgs, inputs', self', ... }: {
 
       system.stateVersion = "25.05";
 
@@ -146,43 +146,46 @@
           # For cryptomator
           "fuse"
         ];
-        packages = with pkgs; [
-          aichat # LLM terminal interface
-          age # secrets generation
-          android-studio
-          android-tools
-          cryptomator # encrypted vault manager
-          # disabled until I can figure out
-          # how to block history for KeePassXC
-          # cliphist # Clipboard history
-          discord # social app
-          grim # Wayland Screenshots
-          gnucash # accounting
-          hledger # cli accounting
-          jq # cli json parsing
-          keepassxc # password manager
-          libreoffice-qt # office stuff
-          lxsession # gui sudoo entry
-          musescore # music notation
-          # nautilus # file manager separate from gnome
-          nil # nix LSP server
-          nixfmt # Nix code formatter
-          obsidian # notes
-          pavucontrol # GUI for audio devices
-          quodlibet # music player and library manager
-          rsync # file sync, mainly for playlist sync
-          sops # secrets
-          slurp # Wayland region selector (screenshots)
-          swappy # Screenshot annotator
-          ueberzugpp # image rendering in terminal via X11
-          vivaldi # web browser
-          vlc # media player
-          whatsie # whatsapp client
-          wf-recorder # Screen recording
-          wl-clipboard # Wayland terminal Copy/Pasting command
-          wofi-emoji # emoji picker
-          zoom-us
-        ];
+
+        packages = let
+          fromNixpkgs = with pkgs; [
+            aichat # LLM terminal interface
+            age # secrets generation
+            android-studio
+            android-tools
+            cryptomator # encrypted vault manager
+            # disabled until I can figure out
+            # how to block history for KeePassXC
+            # cliphist # Clipboard history
+            discord # social app
+            grim # Wayland Screenshots
+            gnucash # accounting
+            hledger # cli accounting
+            jq # cli json parsing
+            keepassxc # password manager
+            libreoffice-qt # office stuff
+            lxsession # gui sudoo entry
+            musescore # music notation
+            # nautilus # file manager separate from gnome
+            nil # nix LSP server
+            nixfmt-tree # Nix code formatter
+            obsidian # notes
+            pavucontrol # GUI for audio devices
+            rsync # file sync, mainly for playlist sync
+            sops # secrets
+            slurp # Wayland region selector (screenshots)
+            swappy # Screenshot annotator
+            ueberzugpp # image rendering in terminal via X11
+            vivaldi # web browser
+            vlc # media player
+            whatsie # whatsapp client
+            wf-recorder # Screen recording
+            wl-clipboard # Wayland terminal Copy/Pasting command
+            wofi-emoji # emoji picker
+            zoom-us
+          ];
+          fromModule = [ self'.packages.quodlibet ];
+        in fromNixpkgs ++ fromModule;
       };
 
       # Fonts
