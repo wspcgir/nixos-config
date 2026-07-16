@@ -49,10 +49,6 @@
         in
         from-nixpkgs ++ from-self ++ from-flakes;
 
-      hyprland.startupServices = [
-        "${selfPackages.usb-restart}/bin/usb-restart"
-      ];
-
       programs.bash = {
         enable = true;
       };
