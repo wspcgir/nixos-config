@@ -3,7 +3,9 @@
   flake.nixosModules."desktop/home" = { ... }: {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.jeff = { pkgs, ... }: {
+    home-manager.users.jeff = { pkgs, ... }: let
+      selfPackages = self.packages.${pkgs.stdenv.hostPlatform.system};
+    in {
 
       home.username = "jeff";
       home.homeDirectory = "/home/jeff";
@@ -36,7 +38,7 @@
             wlsunset # screen temperature
             yt-dlp # Youtube downloader
           ];
-          from-self = with self.packages.${pkgs.stdenv.hostPlatform.system}; [
+          from-self = with selfPackages; [
             gdrive-sync-all
             gdrive-sync
             usb-restart
@@ -46,6 +48,10 @@
           ];
         in
         from-nixpkgs ++ from-self ++ from-flakes;
+
+      hyprland.startupServices = [
+        "${selfPackages.usb-restart}/bin/usb-restart"
+      ];
 
       programs.bash = {
         enable = true;
