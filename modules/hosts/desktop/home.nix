@@ -30,6 +30,7 @@
         let
           from-nixpkgs = with pkgs; [
             cavasik # Audio visualizer
+            gitu # Git CLI
             glance # dashboards
             kitty # required by hyprland
             rclone # file transfer
