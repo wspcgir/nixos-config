@@ -9,7 +9,7 @@
           style = "Regular";
         };
         terminal.shell = {
-          program = "zsh";
+          program = "nu";
         };
       };
     };
