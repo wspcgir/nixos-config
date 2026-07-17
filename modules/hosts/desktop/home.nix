@@ -11,19 +11,20 @@
       home.homeDirectory = "/home/jeff";
 
       imports = [
-        self.homeModules.sops
-        self.homeModules.nvf
-        self.homeModules.zsh
-        self.homeModules.yazi
-        self.homeModules.vscodeCustom
-        self.homeModules.git
         self.homeModules.alacritty
-        self.homeModules.direnv
-        self.homeModules.udiskie
         self.homeModules.base-hyprland
+        self.homeModules.direnv
+        self.homeModules.git
         self.homeModules.hyprland
-        self.homeModules.waybar
+        self.homeModules.nushell
+        self.homeModules.nvf
+        self.homeModules.sops
+        self.homeModules.udiskie
+        self.homeModules.vscodeCustom
         self.homeModules.wallpaperSwitcher
+        self.homeModules.waybar
+        self.homeModules.yazi
+        self.homeModules.zsh
       ];
 
       home.packages =
@@ -59,6 +60,7 @@
         languages.nix.enable = true;
         languages.haskell.enable = true;
         languages.rust.enable = true;
+        languages.nushell.enable = true;
         continue.enable = true;
       };
 
