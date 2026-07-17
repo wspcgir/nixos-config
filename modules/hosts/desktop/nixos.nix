@@ -69,6 +69,10 @@
         powerManagement.enable = true;
         nvidiaSettings = true;
       };
+      hardware.graphics = {
+        enable = true;
+        enable32Bit = true;
+      };
 
       # For Login screen
       services.displayManager.sddm.enable = true;
@@ -214,6 +218,9 @@
           "deepseek-coder:6.7b"
           "embeddinggemma:300m"
         ];
+        environmentVariables = {
+          LD_LIBRARY_PATH = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";
+        };
       };
     }
   );
