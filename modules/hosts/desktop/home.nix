@@ -46,7 +46,6 @@
             usb-restart
           ];
           from-flakes = [
-            inputs.music-curator.packages.${pkgs.stdenv.hostPlatform.system}.music-curator
           ];
         in
         from-nixpkgs ++ from-self ++ from-flakes;
