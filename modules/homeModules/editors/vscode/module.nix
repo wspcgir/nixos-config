@@ -65,6 +65,7 @@ module@{ ... }: {
             ++ lib.optional cfg.languages.nix.enable pkgs.vscode-extensions.jnoortheen.nix-ide
             ++ lib.optional cfg.languages.rust.enable pkgs.vscode-extensions.rust-lang.rust-analyzer
             ++ lib.optional cfg.languages.haskell.enable pkgs.vscode-extensions.haskell.haskell
+            ++ lib.optional cfg.languages.haskell.enable pkgs.vscode-extensions.justusadam.language-haskell
             ++ lib.optional cfg.continue.enable pkgs.vscode-extensions.continue.continue
             ++ lib.optional cfg.languages.nushell.enable pkgs.vscode-extensions.thenuprojectcontributors.vscode-nushell-lang;
 
