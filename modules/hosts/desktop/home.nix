@@ -34,6 +34,7 @@
             gitu # Git CLI
             glance # dashboards
             kitty # required by hyprland
+            kdePackages.kdenlive # Video editor 
             rclone # file transfer
             streamrip # music downloading
             telegram-desktop
