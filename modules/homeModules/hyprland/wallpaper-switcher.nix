@@ -1,7 +1,7 @@
 module: {
 
   flake.homeModules.wallpaperSwitcher =
-    { pkgs, config, ... }:
+    { pkgs, config, lib, ... }:
 
     let
       workspace-wallpaper = with module.config.common-lib.colors; pkgs.writeShellScriptBin "workspace-wallpaper" ''
@@ -53,8 +53,6 @@ module: {
       '';
     in
     {
-      # Disable hyprpaper service if you had it elsewhere:
-      # services.hyprpaper.enable = false;
 
       home.packages = [
         pkgs.jq
@@ -63,11 +61,30 @@ module: {
         workspace-wallpaper
       ];
 
+      systemd.user.services.workspace-wallpaper = {
+        Unit = {
+          Description = "Hyprland Worksapce Wallpaper Switcher";
+          After = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        Service = {
+          ExecStart = "${workspace-wallpaper}/bin/workspace-wallpaper";
+          Restart = "always";
+          RestartSec = "3s";
+          Environment = [
+            "PATH=${lib.makeBinPath [ pkgs.hyprland pkgs.coreutils ]}:/run/current-system/sw/bin"
+          ];
+        };
+
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
+      };
+
       hyprland.startupServices = [
         # Start the awww daemon background process
         "${pkgs.awww}/bin/awww-daemon"
-        # Start our workspace tracking daemon
-        "${workspace-wallpaper}/bin/workspace-wallpaper"
       ];
 
       wayland.windowManager.hyprland.enable = true;
