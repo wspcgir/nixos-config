@@ -27,8 +27,6 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-snapd.url = "github:nix-community/nix-snapd";
   };
 
   outputs =
