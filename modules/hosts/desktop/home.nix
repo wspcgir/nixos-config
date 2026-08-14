@@ -35,6 +35,7 @@
             glance # dashboards
             kitty # required by hyprland
             kdePackages.kdenlive # Video editor 
+            inkscapke # Vector art
             rclone # file transfer
             streamrip # music downloading
             telegram-desktop
