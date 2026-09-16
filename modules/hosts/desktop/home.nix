@@ -35,7 +35,7 @@
             glance # dashboards
             kitty # required by hyprland
             kdePackages.kdenlive # Video editor 
-            inkscapke # Vector art
+            inkscape # Vector art
             rclone # file transfer
             streamrip # music downloading
             telegram-desktop
@@ -48,6 +48,7 @@
             usb-restart
           ];
           from-flakes = [
+            inputs.vault-indexer.packages.${pkgs.stdenv.hostPlatform.system}.default
           ];
         in
         from-nixpkgs ++ from-self ++ from-flakes;

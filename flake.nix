@@ -27,6 +27,12 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Semantic Search for Obsidian Vaults
+    vault-indexer = {
+      url = "github:wspcgir/vault_indexer";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
