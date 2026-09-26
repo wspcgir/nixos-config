@@ -41,6 +41,7 @@
             telegram-desktop
             wlsunset # screen temperature
             yt-dlp # Youtube downloader
+            zotero
           ];
           from-self = with selfPackages; [
             gdrive-sync-all
