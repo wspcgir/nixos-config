@@ -149,6 +149,8 @@
           "storage"
           # For cryptomator
           "fuse"
+          # For paperless
+          "paperless"
         ];
 
         packages = let
@@ -199,11 +201,6 @@
         nerd-fonts.dejavu-sans-mono
       ];
 
-      services.jellyfin = {
-        enable = true;
-        openFirewall = true;
-        user = "jeff";
-      };
 
       services.jackett = {
         enable = true;

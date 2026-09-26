@@ -5,6 +5,9 @@
       inputs.home-manager.nixosModules.home-manager
       self.nixosModules."desktop/nixos"
       self.nixosModules."desktop/home"
+      self.nixosModules."desktop/paperless"
+      self.nixosModules."desktop/drives"
+      self.nixosModules."desktop/jellyfin"
       self.nixosModules.usb-wakeup-disable
       self.nixosModules.storeOptimization
     ];
